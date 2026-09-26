@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         myButton.addEventListener('click', () => {
             
             // Перенаправляем пользователя на новый HTML-файл
-            window.location.href = '/event.html'; 
+            window.location.href = 'event.html'; 
             
         });
     }
