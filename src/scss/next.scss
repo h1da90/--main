@@ -8,14 +8,14 @@ html, body {
   height: 100vh;
   overflow: hidden; /* Полностью запрещаем прокрутку страницы */
   font-family: 'Montserrat', sans-serif;
-  background-color: #f5f5dc; /* Мягкий бежевый фон */
+  background-color: white; /* Мягкий бежевый фон */
 }
 
 .blocks {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: #f5f5dc; 
+  background-color: white; 
   overflow: hidden; 
 
   // ===================================================
