@@ -1,37 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Наши любимые моменты ✨</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/scss/next.css">
 </head>
 <body>
     <div class="blocks">
         <div class="block1"></div>
 
-        <!-- Первая карточка -->
-        <div class="pic">
-            <img src="pic/IMG_0928.PNG" alt="" class="memory1">
-        </div>
-        <div class="text">
-            <!-- ДОБАВИЛИ ВНУТРЕННИЙ DIV -->
-            <div class="inner">
-                <p class="how">Как мы сидели на лавочках</p>
-                <p class="more">мы могли часами сидеть на лавочках просто разговаривать обо всём и особенно мне запомнился этот день незнаю почему но он был такой теплый и душевный</p>
+        <!-- Декор на фоне -->
+        <span class="float" style="top: 47%; left: 22%;">🐾</span>
+        <span class="float" style="top: 47%; left: 68%; animation-delay: 2s;">🤍</span>
+        <span class="float" style="top: 90%; left: 45%; animation-delay: 4s;">🌸</span>
+        <span class="float" style="top: 3%; left: 46%; animation-delay: 1s;">✨</span>
+
+        <!-- Заголовок внизу -->
+        <div class="page-title">Наши любимые моменты ✨</div>
+
+        <!-- Боковая кнопка -->
+        <button class="nextpg">
+            <span class="btn-text">Дальше 💕</span>
+            <span class="btn-arrow">🐾</span>
+        </button>
+
+        <!-- Карточка 1 (Вверху слева) -->
+        <div class="card-container item-1">
+            <div class="pic">
+                <img src="pic/IMG_0928.PNG" alt="Воспоминание 1" class="memory1">
+            </div>
+            <div class="text">
+                <div class="inner">
+                    <p class="how">Как мы сидели на лавочках 🌸</p>
+                    <p class="more">Мы могли часами сидеть на лавочках, просто разговаривать обо всём. И особенно мне запомнился этот день, не знаю почему, но он был такой теплый и душевный.</p>
+                </div>
+            </div>
+            <div class="cover cover1">
+                <span class="cover-tag">воспоминание №1</span>
+                <span class="cover-emoji">🌸</span>
+                <span class="cover-title">а помнишь этот день?</span>
+                <span class="cover-sub">здесь спрятана маленькая история…</span>
+                <span class="cover-arrow">← наведи на фото</span>
+                <span class="cover-dots">🐾 🤍 🐾</span>
             </div>
         </div>
-        
-        <!-- Вторая карточка -->
-        <div class="pic2">
-            <img src="pic/IMG_0929.PNG" alt="" class="memory2">
+
+        <!-- Карточка 2 (Внизу слева) -->
+        <div class="card-container item-2">
+            <div class="pic2">
+                <img src="pic/IMG_0929.PNG" alt="Воспоминание 2" class="memory2">
+            </div>
+            <div class="text2">
+                <div class="inner">
+                    <p class="how">Как мы ездили отдыхать ✨</p>
+                    <p class="more">Мы ездили в разные места, чтобы отдохнуть, обсудить всё о жизни, рассказать о наболевшем и вообще так здорово провести время вместе.</p>
+                </div>
+            </div>
+            <div class="cover cover2">
+                <span class="cover-tag">воспоминание №2</span>
+                <span class="cover-emoji">✨</span>
+                <span class="cover-title">наши поездки</span>
+                <span class="cover-sub">столько разговоров и смеха…</span>
+                <span class="cover-arrow">← наведи на фото</span>
+                <span class="cover-dots">🌸 ✨ 🌸</span>
+            </div>
         </div>
-        <div class="text2">
-            <div class="inner">
-                <p class="how">Как мы ездили отдыхать</p>
-                <p class="more">Мы ездили в разные места чтоб отдохнуть, обсудить все о жизни, рассказать о наболевшем и вообщем хорошо провесть время</p>
+
+        <!-- Карточка 3 (Вверху справа) -->
+        <div class="card-container item-3">
+            <div class="pic3">
+                <img src="pic/IMG_0931.PNG" alt="Воспоминание 3" class="memory3">
+            </div>
+            <div class="text3">
+                <div class="inner">
+                    <p class="how">С тобой ✨</p>
+                    <p class="more">Рядом с тобой я чувствую себя маленьким ребёнком, который забывает обо всех своих проблемах. Ты всегда поддерживала и успокаивала меня.</p>
+                </div>
+            </div>
+            <div class="cover cover3">
+                <span class="cover-tag">воспоминание №3</span>
+                <span class="cover-emoji">🤍</span>
+                <span class="cover-title">тут кое-что важное</span>
+                <span class="cover-sub">то, что я давно хотел сказать…</span>
+                <span class="cover-arrow">← наведи на фото</span>
+                <span class="cover-dots">🤍 🐾 🤍</span>
+            </div>
+        </div>
+
+        <!-- Карточка 4 (Внизу справа) -->
+        <div class="card-container item-4">
+            <div class="pic4">
+                <img src="pic/IMG_0930.PNG" alt="Воспоминание 4" class="memory4">
+            </div>
+            <div class="text4">
+                <div class="inner">
+                    <p class="how">Ты 🤍</p>
+                    <p class="more">Ты лучшее, что случалось со мной. Вообще, я тобой очень ценю и дорожу, ты самая лучшая, и я бы никогда не хотел тебя терять.</p>
+                </div>
+            </div>
+            <div class="cover cover4">
+                <span class="cover-tag">самое главное</span>
+                <span class="cover-emoji">🐾</span>
+                <span class="cover-title">и напоследок…</span>
+                <span class="cover-sub">это только для тебя</span>
+                <span class="cover-arrow">← наведи на фото</span>
+                <span class="cover-dots">✨ 🤍 ✨</span>
+            </div>
+        </div>
+
     </div>
-</div>
-    </div>
+    <script type="module" src="second.js"></script>
 </body>
 </html>

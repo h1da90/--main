@@ -1,22 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- Убрали слэш в начале, чтобы путь стал относительным -->
+    <title>Добро пожаловать ✨</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/scss/main.css">
 </head>
 <body>
-    
-    <div class="start">
-        <div class="block1"></div>
-        <div class="buttons">
-            <button class="button1">нажми</button>
-        </div>
-    </div>
 
-    <!-- Убрали слэш в начале, имя файла mail.js сохранено -->
-    <script type="module" src="mail.js"></script>
+    <div class="start" id="start">
+
+        <!-- Холст: падающие лепестки, искры за курсором, салют -->
+        <canvas id="fx"></canvas>
+
+        <!-- Плавающие эмодзи -->
+        <span class="float" style="top: 8%;  left: 8%;">🌸</span>
+        <span class="float" style="top: 14%; left: 88%; animation-delay: 2s;">✨</span>
+        <span class="float" style="top: 82%; left: 6%;  animation-delay: 4s;">🐾</span>
+        <span class="float" style="top: 88%; left: 90%; animation-delay: 1s;">🤍</span>
+
+        <div class="scene" id="scene">
+            <div class="book" id="book">
+
+                <!-- Внутренняя страница (видна, когда обложка открывается) -->
+                <div class="inside">
+                    <span class="inside-heart">🤍</span>
+                    <span class="inside-text">добро пожаловать</span>
+                    <span class="inside-sub">в наши воспоминания</span>
+                </div>
+
+                <!-- Обложка -->
+                <div class="block1" id="cover">
+                    <div class="cover-back"></div>
+
+                    <div class="polaroid p1">
+                        <img src="pic/IMG_0928.PNG" alt="">
+                        <span>лавочки 🌸</span>
+                    </div>
+                    <div class="polaroid p2">
+                        <img src="pic/IMG_0929.PNG" alt="">
+                        <span>поездки ✨</span>
+                    </div>
+                    <div class="polaroid p3">
+                        <img src="pic/IMG_0931.PNG" alt="">
+                        <span>с тобой 🤍</span>
+                    </div>
+                    <div class="polaroid p4">
+                        <img src="pic/IMG_0930.PNG" alt="">
+                        <span>ты 🐾</span>
+                    </div>
+
+                    <div class="album-intro">
+                        <span class="album-badge">Личный архив 📁</span>
+                        <h1 class="album-title">
+                            Наши самые <span class="accent">тёплые</span><br>воспоминания
+                        </h1>
+                        <p class="album-subtitle">Сборник моментов, которые хочется сохранить навсегда</p>
+                    </div>
+
+                    <div class="buttons">
+                        <button class="button1" id="openBtn">Открыть альбом 🤍</button>
+                    </div>
+
+                    <div class="album-sign">с любовью, для тебя ✨</div>
+
+                    <!-- Блик, следующий за курсором -->
+                    <div class="glare"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="fade" id="fade"></div>
+    </div>
+     <script type="module" src="mail.js"></script>
 </body>
 </html>

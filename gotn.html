@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Афиша Мероприятий ✨</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/scss/gotn.css">
+</head>
+<body>
+   <canvas id="fx" style="position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:20000;"></canvas>
+
+<span class="float" style="position:fixed; top:8%;  left:6%;  font-size:26px; opacity:.3; pointer-events:none; z-index:0;">🎶</span>
+<span class="float" style="position:fixed; top:15%; left:91%; font-size:26px; opacity:.3; pointer-events:none; z-index:0;">✨</span>
+<span class="float" style="position:fixed; top:80%; left:4%;  font-size:26px; opacity:.3; pointer-events:none; z-index:0;">🐾</span>
+<span class="float" style="position:fixed; top:88%; left:92%; font-size:26px; opacity:.3; pointer-events:none; z-index:0;">🤍</span>
+
+    <div class="global">
+        <header class="header">
+            <span class="header-tag">афиша 🎟️</span>
+            <h1>Предстоящие <span class="accent">события</span></h1>
+            <p class="header-sub">выбирай, куда пойдём вместе</p>
+        </header>
+
+        <main class="grid-container">
+            <!-- Карточка 1 -->
+            <div class="card firstcard">
+                <div class="card-badge">Концерт</div>
+                <div class="card-content">
+                    <div class="date-block">
+                        <span class="day">4</span>
+                        <span class="month">октября</span>
+                    </div>
+                    <h2 class="card-title">Баста</h2>
+                    <p class="card-date">
+                        <span class="icon">📅</span> вс 4 октября, 18:00
+                    </p>
+                    <p class="countdown" data-date="2026-10-04T18:00:00">⏳ считаем…</p>
+                </div>
+                <div class="card-footer">
+                    <span class="card-price free">Бесплатно</span>
+                    <button class="card-btn btn-invite">Пойдешь?</button>
+                </div>
+            </div>
+
+            <!-- Карточка 2 -->
+            <div class="card secondcard">
+                <div class="card-badge-guest">Концерт</div>
+                <div class="card-content">
+                    <div class="date-block">
+                        <span class="day">18</span>
+                        <span class="month">октября</span>
+                    </div>
+                    <h2 class="card-title">Toly Summer <span class="subtext">& 4 секретных гостя</span></h2>
+                    <p class="card-date">
+                        <span class="icon">📅</span> 18 октября, воскресенье, 18:00
+                    </p>
+                    <p class="countdown" data-date="2026-10-18T18:00:00">⏳ считаем…</p>
+                </div>
+                <div class="card-footer">
+                    <span class="card-price free">Бесплатно</span>
+                    <button class="card-btn btn-invite">Пойдешь?</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ОКНО #1 -->
+    <div class="modal-overlay" id="questionModal">
+        <div class="modal-content">
+            <div class="modal-emoji">🐾</div>
+            <h2>Точно пойдешь?</h2>
+            <p id="modalText">Выбери один из вариантов ответа ниже:</p>
+            <div class="choice-buttons" id="choiceBox">
+                <button class="card-btn btn-yes" id="btnYes">Да 🥰</button>
+                <button class="card-btn btn-no" id="btnNo">Нет 🥺</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ОКНО #2 -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content">
+            <div class="modal-emoji">🎉</div>
+            <h2>Ура!</h2>
+            <p>Отправьте ваш выбор <a href="https://t.me/qwerty_hdmi" target="_blank">сюда</a></p>
+            <button class="modal-close" id="closeSuccess">Прекрасно ✨</button>
+        </div>
+    </div>
+
+    <script src="gotn.js"></script>
+</body>
+</html>

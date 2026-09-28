@@ -1,4 +1,18 @@
-@import url('https://googleapis.com');
+// 1. Палитра
+$bg-main: #f2ede4;
+$bg-card-photo: #faf6ee;
+$accent-olive: #87986A;
+$accent-terracotta: #cca087;
+$accent-peach: #f6d9c6;
+$text-light: #fffdf9;
+$text-dark: #3a3232;
+$text-muted: #615554;
+
+$polaroid-shadow: 0 14px 30px rgba(58, 50, 50, 0.22);
+
+* {
+  box-sizing: border-box;
+}
 
 html, body {
   margin: 0;
@@ -7,59 +21,491 @@ html, body {
   height: 100vh;
   overflow: hidden;
   font-family: 'Montserrat', sans-serif;
+  background-color: $bg-main;
 }
 
+// ---------- Анимации ----------
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50%      { transform: translateY(-22px) rotate(6deg); }
+}
+
+@keyframes sceneIn {
+  from { opacity: 0; transform: translateY(50px) scale(0.94); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 10px 25px rgba(58, 50, 50, 0.14), 0 0 0 0 rgba(255, 255, 255, 0.55); }
+  70%  { box-shadow: 0 10px 25px rgba(58, 50, 50, 0.14), 0 0 0 18px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 10px 25px rgba(58, 50, 50, 0.14), 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(-280px) rotate(calc(var(--r) * 4)) translateZ(80px);
+  }
+}
+
+// ---------- Фон ----------
 .start {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: white; // Мягкий бежевый фон
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.45) 0%, transparent 75%),
+    radial-gradient(circle at 15% 20%, rgba($accent-olive, 0.10) 0%, transparent 40%),
+    radial-gradient(circle at 85% 85%, rgba($accent-terracotta, 0.16) 0%, transparent 40%),
+    $bg-main;
+}
 
-  .block1 {
-    position: absolute;
-    width: 900px;         
-    height: 500px;       
-    background-color: #87986A; // Шалфейный цвет
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 40px; 
-    box-shadow: 0 30px 60px rgba(74, 88, 55, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.15); 
+#fx {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.float {
+  position: absolute;
+  font-size: 26px;
+  opacity: 0.3;
+  animation: floaty 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+// Затемнение при переходе на следующую страницу
+.fade {
+  position: fixed;
+  inset: 0;
+  background: $bg-main;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  z-index: 50;
+}
+.start.leaving .fade {
+  opacity: 1;
+}
+
+// ---------- 3D-сцена ----------
+.scene {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 760px;
+  height: 440px;
+  margin: -220px 0 0 -380px; // половина высоты и половина ширины
+  perspective: 1800px;
+  z-index: 2;
+  animation: sceneIn 1s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+.book {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: translateX(var(--tx, 0px)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.25s ease-out;
+}
+
+.start.opened .book {
+  --tx: 200px;
+  transition: transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+// ---------- Внутренняя страница ----------
+.inside {
+  position: absolute;
+  inset: 0;
+  border-radius: 40px;
+  border: 2px solid $accent-olive;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 37px,
+      rgba($accent-olive, 0.16) 37px,
+      rgba($accent-olive, 0.16) 38px
+    ),
+    $bg-card-photo;
+  box-shadow: 0 30px 70px rgba(58, 50, 50, 0.2);
+  transform: translateZ(-2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  .inside-heart {
+    font-size: 96px;
+    line-height: 1;
+    animation: heartbeat 1.4s ease-in-out infinite;
   }
 
-  .buttons {
-    .button1 {
-      position: absolute;
-      left: 50%;
-      top: 50%; // Центрируем кнопку ровно посередине
-      transform: translate(-50%, -50%);
-      
-      width: 320px;
-      height: 70px;
-      
-      background-color: #2F3E46; 
-      color: #FFFDF9;            
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase; 
-      
-      border: none;
-      cursor: pointer;
-      border-radius: 50px; 
-      box-shadow: 0 10px 25px rgba(47, 62, 70, 0.3);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  .inside-text {
+    margin-top: 10px;
+    font-family: 'Caveat', cursive;
+    font-size: 64px;
+    font-weight: 700;
+    color: $accent-olive;
+  }
 
-      &:hover {
-        background-color: #d97d56; 
-        transform: translate(-50%, -55%) scale(1.05); 
-        box-shadow: 0 15px 30px rgba(217, 125, 86, 0.4); 
+  .inside-sub {
+    font-family: 'Caveat', cursive;
+    font-size: 30px;
+    font-weight: 600;
+    color: $text-muted;
+  }
+}
+
+// ---------- Обложка ----------
+.block1 {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: transform 1.6s cubic-bezier(0.65, 0, 0.25, 1);
+
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.10) 0%, transparent 60%),
+    $accent-olive;
+  border-radius: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 25px rgba(74, 88, 55, 0.14),
+              0 35px 80px rgba(58, 50, 50, 0.18);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+
+  > * {
+    backface-visibility: hidden;
+  }
+
+  // «Прошивка»
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 16px;
+    border: 2px dashed rgba(255, 255, 255, 0.28);
+    border-radius: 28px;
+    pointer-events: none;
+  }
+
+  // Корешок
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 46px;
+    border-radius: 40px 0 0 40px;
+    background: linear-gradient(90deg, rgba(58, 70, 42, 0.28), transparent);
+    pointer-events: none;
+  }
+
+  // Обратная сторона обложки (видна, когда она открыта)
+  .cover-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 40px;
+    transform: rotateY(180deg);
+    background:
+      radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.12), transparent 60%),
+      #77885b;
+  }
+
+  .glare {
+    position: absolute;
+    inset: 0;
+    border-radius: 40px;
+    pointer-events: none;
+    z-index: 4;
+    background: radial-gradient(
+      450px circle at var(--mx, 50%) var(--my, 25%),
+      rgba(255, 255, 255, 0.22),
+      transparent 55%
+    );
+  }
+
+  .album-intro {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 1.6rem;
+    transform: translateZ(30px);
+
+    .album-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: rgba(255, 255, 255, 0.14);
+      color: $text-light;
+      padding: 8px 18px;
+      border-radius: 30px;
+      margin-bottom: 1.2rem;
+    }
+
+    .album-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: $text-light;
+      line-height: 1.2;
+      margin: 0 0 1rem 0;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 10px rgba(58, 50, 50, 0.15);
+
+      .accent {
+        font-family: 'Caveat', cursive;
+        font-size: 1.25em;
+        font-weight: 700;
+        color: $accent-peach;
+        letter-spacing: 0;
       }
+    }
 
-      &:active {
-        transform: translate(-50%, -45%) scale(0.98); 
+    .album-subtitle {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: rgba($text-light, 0.82);
+      margin: 0 auto;
+      max-width: 420px;
+      min-height: 2.8em;
+
+      &.typing::after {
+        content: '|';
+        margin-left: 2px;
+        animation: blink 0.7s steps(1) infinite;
       }
     }
   }
+
+  // Кнопка
+  .buttons {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transform: translateZ(45px);
+
+    .button1 {
+      position: relative;
+      overflow: hidden;
+      width: 300px;
+      height: 60px;
+      background-color: $bg-card-photo;
+      color: $text-dark;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      border: none;
+      cursor: pointer;
+      border-radius: 24px;
+      box-shadow: 0 10px 25px rgba(58, 50, 50, 0.14);
+      animation: pulse 2.4s ease-out infinite;
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  background-color 0.3s ease,
+                  box-shadow 0.4s ease,
+                  color 0.3s ease;
+
+      // Блик, пробегающий по кнопке
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -80%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+        transform: skewX(-20deg);
+        transition: left 0.7s ease;
+      }
+
+      &:hover {
+        animation: none;
+        background-color: $accent-terracotta;
+        color: $text-light;
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: 0 15px 35px rgba(204, 160, 135, 0.45);
+
+        &::after {
+          left: 130%;
+        }
+      }
+
+      &:active {
+        transform: translateY(1px) scale(0.98);
+      }
+    }
+  }
+
+  // Подпись
+  .album-sign {
+    position: absolute;
+    bottom: 26px;
+    left: 0;
+    right: 0;
+    font-family: 'Caveat', cursive;
+    font-size: 22px;
+    font-weight: 600;
+    color: rgba($text-light, 0.75);
+    transform: translateZ(20px);
+  }
+
+  // Полароиды
+  .polaroid {
+    position: absolute;
+    width: 140px;
+    padding: 9px 9px 0;
+    background: $bg-card-photo;
+    border-radius: 8px;
+    box-shadow: $polaroid-shadow;
+    z-index: 3;
+    transform: rotate(var(--r)) translateZ(80px);
+    animation: drop 0.9s cubic-bezier(0.34, 1.4, 0.64, 1) backwards;
+    animation-delay: var(--d);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                box-shadow 0.4s ease;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      width: 62px;
+      height: 22px;
+      transform: translateX(-50%) rotate(-3deg);
+      background: rgba($accent-terracotta, 0.65);
+      border-radius: 3px;
+    }
+
+    img {
+      display: block;
+      width: 152px;
+      height: 152px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    span {
+      display: block;
+      padding: 6px 0 8px;
+      font-family: 'Caveat', cursive;
+      font-size: 22px;
+      font-weight: 600;
+      color: $text-muted;
+      text-align: center;
+    }
+
+    &:hover {
+      transform: rotate(0deg) translateZ(120px) scale(1.12);
+      box-shadow: 0 25px 50px rgba(58, 50, 50, 0.32);
+      z-index: 6;
+    }
+  }
+
+  .p1 { --r: -9deg; --d: 0.7s; top: -55px;    left: -75px; }
+  .p2 { --r: 6deg;  --d: 0.9s; bottom: -55px; left: -60px; }
+  .p3 { --r: 8deg;  --d: 1.1s; top: -45px;    right: -65px; }
+  .p4 { --r: -7deg; --d: 1.3s; bottom: -60px; right: -75px; }
+}
+
+// Открытая обложка
+.start.opened .block1 {
+  transform: rotateY(-172deg);
+  pointer-events: none;
+}
+
+// ---------- Адаптивность ----------
+@media (max-width: 1100px) {
+  .block1 .polaroid {
+    display: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .scene {
+    width: 92vw;
+    height: 560px;
+    margin: -280px 0 0 -46vw;
+  }
+
+  .start.opened .book {
+    --tx: 0px;
+  }
+
+  .block1 {
+    padding: 3rem 1.5rem 4.5rem;
+
+    .album-intro {
+      .album-title { font-size: 2.1rem; }
+      .album-subtitle { font-size: 1rem; }
+    }
+
+    .buttons .button1 {
+      width: 100%;
+      max-width: 300px;
+      height: 62px;
+    }
+
+    .album-sign {
+      font-size: 22px;
+      bottom: 26px;
+    }
+  }
+  @media (max-width: 600px) {
+  html, body, .start { height: 100dvh; }
+
+  .scene {
+    width: 92vw;
+    height: 500px;
+    margin: -250px 0 0 -46vw;
+  }
+
+  .block1 { padding: 2rem 1.2rem 4.5rem; border-radius: 30px; }
+  .block1::before { inset: 12px; border-radius: 20px; }
+  .block1 .cover-back, .block1 .glare { border-radius: 30px; }
+
+  .block1 .album-intro .album-title { font-size: 2rem; }
+  .block1 .album-intro .album-subtitle { font-size: 0.95rem; min-height: 4.2em; }
+  .block1 .buttons .button1 { width: 100%; max-width: 280px; height: 60px; font-size: 16px; }
+  .block1 .album-sign { font-size: 21px; bottom: 24px; }
+
+  /* два маленьких полароида в углах */
+  .block1 .polaroid { display: block; width: 84px; padding: 5px 5px 0; }
+  .block1 .polaroid img { width: 74px; height: 74px; }
+  .block1 .polaroid span { display: none; }
+  .block1 .p1 { top: -34px; left: -10px; }
+  .block1 .p4 { bottom: -34px; right: -10px; }
+  .block1 .p2, .block1 .p3 { display: none; }
+
+  .start.opened .book { --tx: 0px; }
+  .inside .inside-heart { font-size: 70px; }
+  .inside .inside-text { font-size: 44px; }
+  .inside .inside-sub { font-size: 24px; }
+}
 }
