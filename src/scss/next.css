@@ -1,4 +1,3 @@
-@charset "UTF-8";
 * {
   box-sizing: border-box;
 }
@@ -74,6 +73,24 @@ html, body {
     transform: translateX(-8px);
   }
 }
+@keyframes floaty {
+  0%, 100% {
+    transform: translateY(0) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(-22px) rotate(6deg);
+  }
+}
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .blocks {
   position: relative;
   width: 100%;
@@ -103,14 +120,6 @@ html, body {
   z-index: 1;
 }
 
-@keyframes floaty {
-  0%, 100% {
-    transform: translateY(0) rotate(-6deg);
-  }
-  50% {
-    transform: translateY(-22px) rotate(6deg);
-  }
-}
 .pic {
   position: absolute;
   z-index: 3;
@@ -683,64 +692,90 @@ html, body {
 .nextpg:active {
   background: #e2dbcd;
 }
-@media (max-width: 900px) {
-  .nextpg html, .nextpg body {
+
+@media (max-width: 1000px) {
+  html, body {
     height: auto;
     min-height: 100dvh;
-    overflow-y: auto;
     overflow-x: hidden;
+    overflow-y: auto;
   }
-  .nextpg .blocks {
+  .blocks {
     height: auto;
     min-height: 100dvh;
     overflow: visible;
-    padding: 24px 16px 110px;
+    padding: 28px 16px 110px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 34px;
+    gap: 44px;
   }
-  .nextpg .float, .nextpg .cover, .nextpg [class^=cover] {
+  .float,
+  .block1,
+  .cover1, .cover2, .cover3, .cover4 {
     display: none !important;
   }
-  .nextpg .page-title {
+  .page-title {
     position: static;
     order: -1;
-    font-size: 34px;
+    font-size: 36px;
     text-align: center;
+    line-height: 1.1;
+    margin: 6px 0 0;
   }
-  .nextpg .card-container {
+  .card-container {
     width: 100%;
-    max-width: 420px;
+    max-width: 440px;
     display: flex;
     flex-direction: column;
+    animation: riseIn 0.7s cubic-bezier(0.25, 1, 0.5, 1) both;
   }
-  .nextpg {
-    /* фото */
-  }
-  .nextpg .blocks [class^=pic] {
+  .blocks .pic,
+  .blocks .pic2,
+  .blocks .pic3,
+  .blocks .pic4 {
     position: relative;
     top: auto;
     left: auto;
     width: 100%;
     padding: 10px;
-    border-radius: 22px;
+    border-radius: 24px;
     transform: none !important;
+    z-index: 3;
   }
-  .nextpg .blocks [class^=pic] img {
+  .blocks .pic::before,
+  .blocks .pic2::before,
+  .blocks .pic3::before,
+  .blocks .pic4::before {
+    width: 80px;
+    height: 24px;
+    top: -12px;
+  }
+  .blocks .pic img,
+  .blocks .pic2 img,
+  .blocks .pic3 img,
+  .blocks .pic4 img {
     width: 100%;
     height: auto;
     aspect-ratio: 1/1;
+    border-radius: 16px;
   }
-  .nextpg .blocks [class^=pic]::before {
-    width: 76px;
-    height: 22px;
-    top: -11px;
+  .blocks .item-1 .pic {
+    transform: rotate(-1deg) !important;
   }
-  .nextpg {
-    /* текст всегда виден под фото */
+  .blocks .item-2 .pic2 {
+    transform: rotate(1deg) !important;
   }
-  .nextpg .blocks [class^=text] {
+  .blocks .item-3 .pic3 {
+    transform: rotate(-1deg) !important;
+  }
+  .blocks .item-4 .pic4 {
+    transform: rotate(1deg) !important;
+  }
+  .blocks .text,
+  .blocks .text2,
+  .blocks .text3,
+  .blocks .text4 {
     position: relative;
     top: auto;
     left: auto;
@@ -748,42 +783,75 @@ html, body {
     height: auto;
     opacity: 1 !important;
     padding: 22px 20px !important;
-    margin-top: 14px;
+    margin-top: 16px;
     border: 2px solid #87986A;
-    border-radius: 22px;
+    border-radius: 24px;
     overflow: visible;
+    z-index: 2;
   }
-  .nextpg .blocks [class^=text] .inner {
+  .blocks .text .inner,
+  .blocks .text2 .inner,
+  .blocks .text3 .inner,
+  .blocks .text4 .inner {
     width: 100%;
-    padding: 0;
     height: auto;
+    padding: 0;
   }
-  .nextpg .blocks [class^=text] .inner .how {
-    font-size: 20px;
+  .blocks .text .inner .how,
+  .blocks .text2 .inner .how,
+  .blocks .text3 .inner .how,
+  .blocks .text4 .inner .how {
+    font-size: 21px;
+    margin-bottom: 10px;
   }
-  .nextpg .blocks [class^=text] .inner .more {
+  .blocks .text .inner .more,
+  .blocks .text2 .inner .more,
+  .blocks .text3 .inner .more,
+  .blocks .text4 .inner .more {
     font-size: 15px;
+    line-height: 1.65;
   }
-  .nextpg {
-    /* кнопка «Дальше» — панель внизу */
-  }
-  .nextpg .nextpg,
-  .nextpg .nextpg:hover {
+  .nextpg,
+  .nextpg:hover {
+    position: fixed;
     top: auto;
     bottom: 0;
-    right: 0;
     left: 0;
-    width: 100%;
-    height: 66px;
+    right: 0;
+    width: 100% !important;
+    height: 68px;
     flex-direction: row;
+    gap: 12px;
     border-left: none;
-    border-top: 2px solid rgba(135, 152, 106, 0.3);
+    border-top: 2px solid rgba(135, 152, 106, 0.35);
+    background: rgba(250, 246, 238, 0.92);
     padding-bottom: env(safe-area-inset-bottom);
+    box-shadow: 0 -8px 24px rgba(74, 62, 61, 0.08);
   }
-  .nextpg .nextpg .btn-text,
-  .nextpg .nextpg:hover .btn-text {
+  .nextpg .btn-text,
+  .nextpg:hover .btn-text {
     writing-mode: horizontal-tb;
     transform: none;
     font-size: 16px;
+    letter-spacing: 1.5px;
+    color: #87986A;
+  }
+  .nextpg .btn-arrow,
+  .nextpg:hover .btn-arrow {
+    transform: none;
+  }
+}
+@media (max-width: 380px) {
+  .page-title {
+    font-size: 30px;
+  }
+  .blocks {
+    padding: 22px 12px 106px;
+  }
+  .blocks .text .inner .how,
+  .blocks .text2 .inner .how,
+  .blocks .text3 .inner .how,
+  .blocks .text4 .inner .how {
+    font-size: 19px;
   }
 }/*# sourceMappingURL=next.css.map */

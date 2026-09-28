@@ -128,7 +128,6 @@ html, body {
   border: 2px dashed rgba($accent-olive, 0.6);
   border-left: none;
   border-radius: 0 28px 28px 0;
-  // линованная бумага
   background:
     repeating-linear-gradient(
       to bottom,
@@ -205,6 +204,16 @@ html, body {
   50%      { transform: translateX(-8px); }
 }
 
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(-6deg); }
+  50%      { transform: translateY(-22px) rotate(6deg); }
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 // Главный контейнер
 .blocks {
   position: relative;
@@ -214,9 +223,7 @@ html, body {
   overflow: hidden;
 }
 
-// ===================================================
 // ДЕКОР
-// ===================================================
 .page-title {
   position: absolute;
   left: 5%;
@@ -238,16 +245,7 @@ html, body {
   z-index: 1;
 }
 
-@keyframes floaty {
-  0%, 100% { transform: translateY(0) rotate(-6deg); }
-  50%      { transform: translateY(-22px) rotate(6deg); }
-}
-
-// ===================================================
 // ЛЕВЫЙ РЯД
-// ===================================================
-
-// КАРТОЧКА 1
 .pic {
   @include pic-container-base;
   top: 6%;
@@ -279,7 +277,6 @@ html, body {
 }
 .cover1 { @include cover-base(6%, 5%); }
 
-// КАРТОЧКА 2
 .pic2 {
   @include pic-container-base;
   top: 52%;
@@ -311,11 +308,7 @@ html, body {
 }
 .cover2 { @include cover-base(52%, 5%); }
 
-// ===================================================
 // ПРАВЫЙ РЯД
-// ===================================================
-
-// КАРТОЧКА 3
 .pic3 {
   @include pic-container-base;
   top: 6%;
@@ -347,7 +340,6 @@ html, body {
 }
 .cover3 { @include cover-base(6%, 50%); }
 
-// КАРТОЧКА 4
 .pic4 {
   @include pic-container-base;
   top: 52%;
@@ -379,9 +371,7 @@ html, body {
 }
 .cover4 { @include cover-base(52%, 50%); }
 
-// ===================================================
 // КНОПКА «ДАЛЬШЕ»
-// ===================================================
 .nextpg {
   position: absolute;
   right: 0;
@@ -435,76 +425,164 @@ html, body {
   &:active {
     background: #e2dbcd;
   }
-  @media (max-width: 900px) {
-  html, body { height: auto; min-height: 100dvh; overflow-y: auto; overflow-x: hidden; }
+}
+
+// ===================================================
+// ТЕЛЕФОН И ПЛАНШЕТ: лента карточек, текст всегда виден
+// ===================================================
+@media (max-width: 1000px) {
+
+  html, body {
+    height: auto;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 
   .blocks {
     height: auto;
     min-height: 100dvh;
     overflow: visible;
-    padding: 24px 16px 110px;
+    padding: 28px 16px 110px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 34px;
+    gap: 44px;
   }
 
-  .float, .cover, [class^="cover"] { display: none !important; }
+  // убираем всё, что нужно только для мыши
+  .float,
+  .block1,
+  .cover1, .cover2, .cover3, .cover4 {
+    display: none !important;
+  }
 
   .page-title {
     position: static;
     order: -1;
-    font-size: 34px;
+    font-size: 36px;
     text-align: center;
+    line-height: 1.1;
+    margin: 6px 0 0;
   }
 
-  .card-container { width: 100%; max-width: 420px; display: flex; flex-direction: column; }
+  .card-container {
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    animation: riseIn 0.7s cubic-bezier(0.25, 1, 0.5, 1) both;
+  }
 
-  /* фото */
-  .blocks [class^="pic"] {
+  // ---- фото ----
+  .blocks .pic,
+  .blocks .pic2,
+  .blocks .pic3,
+  .blocks .pic4 {
     position: relative;
-    top: auto; left: auto;
+    top: auto;
+    left: auto;
     width: 100%;
     padding: 10px;
-    border-radius: 22px;
+    border-radius: 24px;
     transform: none !important;
-  }
-  .blocks [class^="pic"] img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
-  .blocks [class^="pic"]::before { width: 76px; height: 22px; top: -11px; }
+    z-index: 3;
 
-  /* текст всегда виден под фото */
-  .blocks [class^="text"] {
+    &::before {
+      width: 80px;
+      height: 24px;
+      top: -12px;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+    }
+  }
+
+  // лёгкий наклон для живости
+  .blocks .item-1 .pic  { transform: rotate(-1deg) !important; }
+  .blocks .item-2 .pic2 { transform: rotate(1deg) !important; }
+  .blocks .item-3 .pic3 { transform: rotate(-1deg) !important; }
+  .blocks .item-4 .pic4 { transform: rotate(1deg) !important; }
+
+  // ---- текст всегда открыт под фото ----
+  .blocks .text,
+  .blocks .text2,
+  .blocks .text3,
+  .blocks .text4 {
     position: relative;
-    top: auto; left: auto;
+    top: auto;
+    left: auto;
     width: 100% !important;
     height: auto;
     opacity: 1 !important;
     padding: 22px 20px !important;
-    margin-top: 14px;
-    border: 2px solid #87986A;
-    border-radius: 22px;
+    margin-top: 16px;
+    border: 2px solid $accent-olive;
+    border-radius: 24px;
     overflow: visible;
-  }
-  .blocks [class^="text"] .inner { width: 100%; padding: 0; height: auto; }
-  .blocks [class^="text"] .inner .how { font-size: 20px; }
-  .blocks [class^="text"] .inner .more { font-size: 15px; }
+    z-index: 2;
 
-  /* кнопка «Дальше» — панель внизу */
+    .inner {
+      width: 100%;
+      height: auto;
+      padding: 0;
+
+      .how {
+        font-size: 21px;
+        margin-bottom: 10px;
+      }
+
+      .more {
+        font-size: 15px;
+        line-height: 1.65;
+      }
+    }
+  }
+
+  // ---- кнопка «Дальше»: панель внизу экрана ----
   .nextpg,
   .nextpg:hover {
-    top: auto; bottom: 0; right: 0; left: 0;
-    width: 100%;
-    height: 66px;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100% !important;
+    height: 68px;
     flex-direction: row;
+    gap: 12px;
     border-left: none;
-    border-top: 2px solid rgba(135, 152, 106, 0.3);
+    border-top: 2px solid rgba($accent-olive, 0.35);
+    background: rgba($bg-card-photo, 0.92);
     padding-bottom: env(safe-area-inset-bottom);
+    box-shadow: 0 -8px 24px rgba(74, 62, 61, 0.08);
   }
+
   .nextpg .btn-text,
   .nextpg:hover .btn-text {
     writing-mode: horizontal-tb;
     transform: none;
     font-size: 16px;
+    letter-spacing: 1.5px;
+    color: $accent-olive;
+  }
+
+  .nextpg .btn-arrow,
+  .nextpg:hover .btn-arrow {
+    transform: none;
   }
 }
+
+// Совсем маленькие экраны
+@media (max-width: 380px) {
+  .page-title { font-size: 30px; }
+  .blocks { padding: 22px 12px 106px; }
+  .blocks .text .inner .how,
+  .blocks .text2 .inner .how,
+  .blocks .text3 .inner .how,
+  .blocks .text4 .inner .how { font-size: 19px; }
 }
