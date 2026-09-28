@@ -1,0 +1,131 @@
+@media (max-width: 1000px) {
+
+  html, body {
+    height: auto !important;
+    min-height: 100dvh;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+  }
+
+  .blocks {
+    height: auto !important;
+    min-height: 100dvh;
+    overflow: visible !important;
+    padding: 28px 16px 110px !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 44px;
+  }
+
+  .float,
+  .block1,
+  .cover {
+    display: none !important;
+  }
+
+  .page-title {
+    position: static !important;
+    order: -1;
+    font-size: 36px;
+    text-align: center;
+    line-height: 1.1;
+    margin: 6px 0 0;
+  }
+
+  .card-container {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* фото */
+  .blocks .pic,
+  .blocks .pic2,
+  .blocks .pic3,
+  .blocks .pic4 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100%;
+    padding: 10px;
+    border-radius: 24px;
+    transform: none !important;
+    z-index: 3;
+  }
+
+  .blocks .pic img,
+  .blocks .pic2 img,
+  .blocks .pic3 img,
+  .blocks .pic4 img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
+  }
+
+  /* текст всегда открыт под фото */
+  .blocks .text,
+  .blocks .text2,
+  .blocks .text3,
+  .blocks .text4 {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    opacity: 1 !important;
+    padding: 22px 20px !important;
+    margin-top: 16px;
+    border: 2px solid #87986A !important;
+    border-radius: 24px !important;
+    overflow: visible !important;
+    z-index: 2;
+  }
+
+  .blocks .text .inner,
+  .blocks .text2 .inner,
+  .blocks .text3 .inner,
+  .blocks .text4 .inner {
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 !important;
+  }
+
+  .blocks .inner .how { font-size: 21px; margin-bottom: 10px; }
+  .blocks .inner .more { font-size: 15px; line-height: 1.65; }
+
+  /* кнопка «Дальше» — панель внизу */
+  .nextpg,
+  .nextpg:hover {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100% !important;
+    height: 68px;
+    flex-direction: row !important;
+    gap: 12px;
+    border-left: none;
+    border-top: 2px solid rgba(135, 152, 106, 0.35);
+    background: rgba(250, 246, 238, 0.95);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .nextpg .btn-text,
+  .nextpg:hover .btn-text {
+    writing-mode: horizontal-tb !important;
+    transform: none !important;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    color: #87986A;
+  }
+
+  .nextpg .btn-arrow,
+  .nextpg:hover .btn-arrow {
+    transform: none !important;
+  }
+}
